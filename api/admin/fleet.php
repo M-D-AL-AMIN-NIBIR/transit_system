@@ -2,7 +2,7 @@
 require_once '../../includes/auth.php';
 require_once '../../includes/db.php';
 
-// ADMIN_ONLY
+
 requireAuth('admin');
 
 // API_RESPONSE
@@ -48,7 +48,7 @@ switch ($method) {
                 exit;
             }
             
-            // Validate required fields
+           
             if (empty($data['type']) || empty($data['capacity'])) {
                 http_response_code(400);
                 echo json_encode(['success' => false, 'error' => 'Missing required fields']);
@@ -57,7 +57,7 @@ switch ($method) {
             
             $pdo->beginTransaction();
             
-            // SECURE_QUERY - Insert vehicle
+           
             $stmt = $pdo->prepare("INSERT INTO vehicles (type, capacity, status) VALUES (?, ?, ?)");
             $stmt->execute([
                 $data['type'],
@@ -67,7 +67,7 @@ switch ($method) {
             
             $vehicleId = $pdo->lastInsertId();
             
-            // Insert type-specific details
+        
             if ($data['type'] === 'bus' && !empty($data['route_no'])) {
                 $stmt2 = $pdo->prepare("INSERT INTO bus_details (vehicle_id, route_no, sub_type) VALUES (?, ?, ?)");
                 $stmt2->execute([
@@ -113,7 +113,6 @@ switch ($method) {
             
             $pdo->beginTransaction();
             
-            // SECURE_QUERY - Update vehicle
             $stmt = $pdo->prepare("UPDATE vehicles SET type = ?, capacity = ?, status = ? WHERE vehicle_id = ?");
             $stmt->execute([
                 $data['type'],
@@ -149,7 +148,7 @@ switch ($method) {
                 exit;
             }
             
-            // SECURE_QUERY - Delete vehicle (cascade will handle related records)
+           
             $stmt = $pdo->prepare("DELETE FROM vehicles WHERE vehicle_id = ?");
             $stmt->execute([$data['vehicle_id']]);
             

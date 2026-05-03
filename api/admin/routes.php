@@ -2,10 +2,10 @@
 require_once '../../includes/auth.php';
 require_once '../../includes/db.php';
 
-// ADMIN_ONLY
+
 requireAuth('admin');
 
-// API_RESPONSE
+
 header('Content-Type: application/json');
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -16,7 +16,7 @@ switch ($method) {
             $routeId = isset($_GET['id']) ? intval($_GET['id']) : null;
             
             if ($routeId) {
-                // SECURE_QUERY - Get specific route with fare rules
+              
                 $stmt = $pdo->prepare(
                     "SELECT r.*, 
                             fr.fare_id, fr.passenger_type, fr.base_fare, fr.per_km_rate
@@ -27,7 +27,7 @@ switch ($method) {
                 $stmt->execute([$routeId]);
                 $routes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             } else {
-                // SECURE_QUERY - Get all routes
+              
                 $stmt = $pdo->query("SELECT * FROM routes ORDER BY route_id DESC");
                 $routes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
@@ -58,7 +58,7 @@ switch ($method) {
             
             $pdo->beginTransaction();
             
-            // SECURE_QUERY - Insert route
+           
             $stmt = $pdo->prepare(
                 "INSERT INTO routes (route_name, origin, destination, distance_km, status) 
                  VALUES (?, ?, ?, ?, ?)"
@@ -73,7 +73,7 @@ switch ($method) {
             
             $routeId = $pdo->lastInsertId();
             
-            // Insert default fare rules
+            
             $fareTypes = ['regular', 'student', 'senior'];
             foreach ($fareTypes as $type) {
                 $stmt2 = $pdo->prepare(
@@ -116,7 +116,7 @@ switch ($method) {
                 exit;
             }
             
-            // SECURE_QUERY - Update route
+         
             $stmt = $pdo->prepare(
                 "UPDATE routes SET 
                     route_name = ?, origin = ?, destination = ?, 
@@ -156,7 +156,7 @@ switch ($method) {
                 exit;
             }
             
-            // SECURE_QUERY - Delete route (cascade will handle related records)
+         
             $stmt = $pdo->prepare("DELETE FROM routes WHERE route_id = ?");
             $stmt->execute([$data['route_id']]);
             

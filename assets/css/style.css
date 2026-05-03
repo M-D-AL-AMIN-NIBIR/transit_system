@@ -1,11 +1,7 @@
-/* ============================================================
-   MetroLink — Shared Base Styles (style.css)
-   ============================================================ */
 
-/* ---------- Google Fonts ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ---------- CSS Custom Properties (Design Tokens) ---------- */
+
 :root {
   --sidebar-bg:        #1a2332;
   --sidebar-width:     220px;
@@ -29,7 +25,7 @@
   --transition:        0.18s ease;
 }
 
-/* ---------- Reset & Base ---------- */
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -52,7 +48,7 @@ ul { list-style: none; }
 img { display: block; max-width: 100%; }
 button, input, select, textarea { font-family: inherit; }
 
-/* ---------- Layout Shell ---------- */
+
 .layout {
   display: flex;
   min-height: 100vh;
@@ -67,7 +63,7 @@ button, input, select, textarea { font-family: inherit; }
   transition: margin-left var(--transition);
 }
 
-/* ---------- Sidebar (shared dark) ---------- */
+
 .sidebar {
   width: var(--sidebar-width);
   background-color: var(--sidebar-bg);
@@ -159,7 +155,7 @@ button, input, select, textarea { font-family: inherit; }
   opacity: 1;
 }
 
-/* Sidebar footer */
+
 .sidebar-footer {
   padding: 12px 10px 16px;
   border-top: 1px solid rgba(255,255,255,0.07);
@@ -187,7 +183,7 @@ button, input, select, textarea { font-family: inherit; }
   border-color: rgba(255,255,255,0.35);
 }
 
-/* ---------- Cards ---------- */
+
 .card {
   background: var(--surface-white);
   border: 1px solid var(--border-color);
@@ -202,7 +198,7 @@ button, input, select, textarea { font-family: inherit; }
   margin-bottom: 18px;
 }
 
-/* ---------- Buttons ---------- */
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -247,7 +243,7 @@ button, input, select, textarea { font-family: inherit; }
   font-size: 13px;
 }
 
-/* ---------- Badges ---------- */
+
 .badge {
   display: inline-flex;
   align-items: center;
@@ -274,7 +270,6 @@ button, input, select, textarea { font-family: inherit; }
   color: var(--badge-active-text);
 }
 
-/* ---------- Tables ---------- */
 .table-wrapper {
   overflow-x: auto;
   border-radius: 8px;
@@ -319,7 +314,7 @@ tbody td {
   vertical-align: middle;
 }
 
-/* ---------- Inputs ---------- */
+
 .input-field {
   width: 100%;
   padding: 10px 14px;
@@ -356,7 +351,7 @@ tbody td {
 
 .input-with-icon .input-field { padding-left: 34px; }
 
-/* ---------- Search input (with icon on right) ---------- */
+
 .search-wrap {
   position: relative;
 }
@@ -374,7 +369,7 @@ tbody td {
 
 .search-wrap .input-field { padding-left: 32px; }
 
-/* ---------- Pagination ---------- */
+
 .pagination {
   display: flex;
   align-items: center;
@@ -424,7 +419,7 @@ tbody td {
   pointer-events: none;
 }
 
-/* ---------- Hamburger (mobile) ---------- */
+
 .hamburger {
   display: none;
   flex-direction: column;
@@ -452,7 +447,7 @@ tbody td {
   z-index: 99;
 }
 
-/* ---------- Utility ---------- */
+
 .text-muted  { color: var(--text-muted); }
 .text-blue   { color: var(--primary-blue); }
 .text-sm     { font-size: 13px; }
@@ -469,7 +464,7 @@ tbody td {
 .gap-8       { gap: 8px; }
 .gap-12      { gap: 12px; }
 
-/* ---------- Responsive ---------- */
+
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);

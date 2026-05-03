@@ -13,7 +13,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case 'GET':
         try {
-            // SECURE_QUERY - Fetch all vehicles with optional filtering
+           
             $query = "SELECT v.*, 
                       bd.bus_id, bd.route_no, bd.sub_type,
                       td.train_id, td.line_no

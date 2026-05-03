@@ -1,8 +1,3 @@
-/* ============================================================
-   MetroLink — Passenger-Specific Styles (passenger.css)
-   ============================================================ */
-
-/* ---------- Passenger Sidebar Avatar / Welcome ---------- */
 .sidebar-user {
   display: flex;
   align-items: center;
@@ -38,7 +33,7 @@
   color: #e2e8f0;
 }
 
-/* ---------- Passenger Dashboard Layout ---------- */
+
 .passenger-dashboard {
   max-width: 1200px;
 }
@@ -59,7 +54,6 @@
   letter-spacing: -0.3px;
 }
 
-/* ---------- Top Two-Column Grid ---------- */
 .dashboard-grid {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
@@ -67,7 +61,7 @@
   margin-bottom: 20px;
 }
 
-/* ---------- Active Pass Status Card ---------- */
+
 .pass-pill {
   display: inline-flex;
   align-items: center;
@@ -131,7 +125,7 @@
 
 .pass-info-box strong { color: var(--text-primary); }
 
-/* ---------- Find Route Card ---------- */
+
 .route-inputs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -148,9 +142,9 @@
   background: #e5e7eb;
 }
 
-/* ---------- Trip History Card ---------- */
+
 .trip-history-card {
-  /* full width via grid-column: 1/-1 on parent grid */
+ 
 }
 
 .trip-history-header {
@@ -165,7 +159,7 @@
   height: 13px;
 }
 
-/* ---------- Passenger Mobile Topbar ---------- */
+
 .passenger-topbar {
   display: none;
   align-items: center;
@@ -186,7 +180,7 @@
   font-weight: 500;
 }
 
-/* ---------- Desktop welcome (sidebar-embedded already shown) ---------- */
+
 @media (max-width: 960px) {
   .dashboard-grid {
     grid-template-columns: 1fr;

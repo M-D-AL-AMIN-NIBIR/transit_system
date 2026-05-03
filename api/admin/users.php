@@ -2,10 +2,9 @@
 require_once '../../includes/auth.php';
 require_once '../../includes/db.php';
 
-// ADMIN_ONLY
+
 requireAuth('admin');
 
-// API_RESPONSE
 header('Content-Type: application/json');
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -33,7 +32,7 @@ switch ($method) {
                     exit;
                 }
                 
-                // Don't expose password hash
+           
                 unset($user['password_hash']);
                 
                 echo json_encode([
@@ -42,7 +41,7 @@ switch ($method) {
                 ]);
                 
             } else {
-                // SECURE_QUERY - Get all users
+              
                 $role = isset($_GET['role']) ? $_GET['role'] : null;
                 $status = isset($_GET['status']) ? $_GET['status'] : null;
                 
@@ -90,14 +89,14 @@ switch ($method) {
                 exit;
             }
             
-            // Prevent modifying own status/role through this endpoint
+          
             if ($data['user_id'] == $_SESSION['user_id'] && isset($data['status'])) {
                 http_response_code(403);
                 echo json_encode(['success' => false, 'error' => 'Cannot modify own status']);
                 exit;
             }
             
-            // SECURE_QUERY - Update user
+          
             $stmt = $pdo->prepare(
                 "UPDATE users SET status = ?, role = ? WHERE user_id = ?"
             );
@@ -130,15 +129,14 @@ switch ($method) {
                 echo json_encode(['success' => false, 'error' => 'User ID required']);
                 exit;
             }
-            
-            // Prevent self-deletion
+          
             if ($data['user_id'] == $_SESSION['user_id']) {
                 http_response_code(403);
                 echo json_encode(['success' => false, 'error' => 'Cannot delete own account']);
                 exit;
             }
             
-            // SECURE_QUERY - Delete user (cascade will handle profile)
+         
             $stmt = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
             $stmt->execute([$data['user_id']]);
             

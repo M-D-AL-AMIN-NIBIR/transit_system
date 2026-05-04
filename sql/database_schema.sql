@@ -1,16 +1,10 @@
--- =====================================================
--- MetroLink Transit System — Full Database Schema
--- MySQL 8.0+  |  Bangladesh-based (BDT currency)
--- =====================================================
 
--- Create database
+
 CREATE DATABASE IF NOT EXISTS transit_system
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE transit_system;
 
--- Drop existing tables in reverse dependency order
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS notifications;
@@ -30,9 +24,7 @@ DROP TABLE IF EXISTS users;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- =====================================================
--- 1. USERS & AUTHENTICATION
--- =====================================================
+
 
 CREATE TABLE users (
     user_id       INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,9 +50,7 @@ CREATE TABLE passenger_profiles (
     INDEX idx_user_id (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =====================================================
--- 2. ROUTES & FARE RULES
--- =====================================================
+
 
 CREATE TABLE routes (
     route_id     INT AUTO_INCREMENT PRIMARY KEY,
@@ -84,9 +74,6 @@ CREATE TABLE fare_rules (
     INDEX idx_passenger_type (passenger_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =====================================================
--- 3. VEHICLES & SCHEDULING
--- =====================================================
 
 CREATE TABLE vehicles (
     vehicle_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -128,9 +115,7 @@ CREATE TABLE route_assignments (
     INDEX idx_route_id (route_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =====================================================
--- 4. PASSES, PAYMENTS, TRIPS
--- =====================================================
+
 
 CREATE TABLE passes (
     pass_id          INT AUTO_INCREMENT PRIMARY KEY,
@@ -190,9 +175,6 @@ CREATE TABLE trips (
     INDEX idx_start_time (start_time)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =====================================================
--- 5. TRACKING & NOTIFICATIONS
--- =====================================================
 
 CREATE TABLE live_tracking (
     tracking_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -217,21 +199,14 @@ CREATE TABLE notifications (
     INDEX idx_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =====================================================
--- 6. DEFAULT ADMIN ACCOUNT
--- Email:    admin@transit.com
--- Password: admin123
--- (bcrypt hash for 'admin123')
--- =====================================================
+
 
 INSERT INTO users (name, email, password_hash, role, status) VALUES
 ('Admin', 'admin@transit.com',
  '$2y$10$Nfh30SaUTW/gbnjIxFIg/eJze2yQ6UsAfeEsskO3ZCTtdRnfBKCJi',
  'admin', 'active');
 
--- =====================================================
--- 7. SAMPLE DHAKA ROUTES (optional — comment out if not needed)
--- =====================================================
+
 
 INSERT INTO routes (route_name, origin, destination, distance_km, status) VALUES
 ('Route 1: Motijheel - Uttara',    'Motijheel',  'Uttara',     18.50, 'active'),
@@ -240,9 +215,7 @@ INSERT INTO routes (route_name, origin, destination, distance_km, status) VALUES
 ('Route 4: Sadarghat - Gabtoli',   'Sadarghat',  'Gabtoli',    10.20, 'active'),
 ('Route 5: Farmgate - Banani',     'Farmgate',   'Banani',     8.40,  'active');
 
--- =====================================================
--- 8. SAMPLE FARE RULES FOR EACH ROUTE (BDT)
--- =====================================================
+
 
 INSERT INTO fare_rules (route_id, passenger_type, base_fare, per_km_rate) VALUES
 (1, 'regular', 20.00, 1.50), (1, 'student', 10.00, 1.00), (1, 'senior', 15.00, 1.20),
@@ -251,6 +224,3 @@ INSERT INTO fare_rules (route_id, passenger_type, base_fare, per_km_rate) VALUES
 (4, 'regular', 18.00, 1.40), (4, 'student',  9.00, 0.90), (4, 'senior', 13.00, 1.10),
 (5, 'regular', 15.00, 1.30), (5, 'student',  8.00, 0.80), (5, 'senior', 11.00, 1.00);
 
--- =====================================================
--- END OF SCHEMA
--- =====================================================

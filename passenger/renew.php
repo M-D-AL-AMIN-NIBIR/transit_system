@@ -13,7 +13,7 @@ $userId         = $_SESSION['user_id'];
 $assets         = '../assets';
 $error          = null;
 
-// Pass type catalog (price in BDT)
+
 $PASS_CATALOG = [
     'daily'       => ['label' => 'Daily Pass',       'price' => 60.00,   'days' => 1,  'trips' => null],
     'weekly'      => ['label' => 'Weekly Pass',      'price' => 350.00,  'days' => 7,  'trips' => null],
@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $pdo->beginTransaction();
 
-            // Create payment record (simulated success)
+           
             $pdo->prepare("INSERT INTO payments (user_id, amount, method, status) VALUES (?, ?, ?, 'completed')")
                 ->execute([$userId, $cfg['price'], $method]);
             $paymentId = $pdo->lastInsertId();
 
-            // Create pass
+         
             $validFrom = date('Y-m-d');
             $validTo   = date('Y-m-d', strtotime("+{$cfg['days']} days"));
             $pdo->prepare(
@@ -48,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             )->execute([$userId, $type, $validFrom, $validTo, $cfg['trips']]);
             $passId = $pdo->lastInsertId();
 
-            // Link purchase
+       
             $pdo->prepare("INSERT INTO pass_purchases (pass_id, payment_id) VALUES (?, ?)")
                 ->execute([$passId, $paymentId]);
 
-            // Notification
+     
             $pdo->prepare("INSERT INTO notifications (user_id, title, message) VALUES (?, ?, ?)")
                 ->execute([$userId, 'Pass Purchased', ucfirst($type) . ' pass activated. Valid until ' . $validTo . '.']);
 

@@ -14,7 +14,7 @@ $error = null;
 
 $userId = $_SESSION['user_id'];
 
-// Handle POST — update profile
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name  = trim($_POST['name']  ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch current profile data
+
 $stmt = $pdo->prepare(
     "SELECT u.name, u.email, pp.phone
      FROM users u
